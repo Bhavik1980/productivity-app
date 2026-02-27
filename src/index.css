@@ -1,68 +1,175 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+/* Reset */
+* {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Full page dark mode */
+body.dark {
+  background: #121212;
+  color: white;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode container */
+.container.dark {
+  background: #1e1e1e;
+  color: white;
+}
+
+/* Dark mode inputs and select */
+.container.dark input,
+.container.dark select {
+  background: #2c2c2c;
+  color: white;
+  border: 1px solid #555;
+}
+
+/* Headline */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+/* Inputs */
+input {
+  padding: 10px;
+  width: 180px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
 }
-button:hover {
+
+input:focus {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+/* Select */
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* General Buttons */
+button {
+  padding: 10px 16px;
+  border: none;
+  background: #646cff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background: #4f56d8;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* Clear Completed Button */
+.clear-btn {
+  background: #ff4d4d !important;
+  margin-top: 10px;
+}
+
+.clear-btn:hover {
+  background: #e33a3a !important;
+}
+
+/* Add spacing utility */
+.spaced {
+  margin-left: 10px;
+}
+
+/* Task list */
+ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+li {
+  padding: 8px 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease;
+}
+
+li:hover {
+  transform: translateX(4px);
+}
+
+/* Completed tasks */
+li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Category label inside task */
+.category {
+  margin-left: 10px;
+  font-size: 12px;
+  background: #dde3ff;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+/* Empty state */
+.empty {
+  margin-top: 15px;
+  color: #777;
+  font-style: italic;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  input, select, button {
+    width: 100%;
+    margin: 6px 0;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+/* Active filter */
+.active-filter {
+  background: #222;
+  color: white;
+}
+
+/* Dark mode active filter */
+.container.dark .active-filter {
+  background: white;
+  color: black;
 }
