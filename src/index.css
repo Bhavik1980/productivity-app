@@ -21,12 +21,12 @@ body.dark {
 /* Container */
 .container {
   width: 90%;
-  max-width: 500px;
+  max-width: 675px; /* Increased width */
   margin: 60px auto;
   padding: 25px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -48,6 +48,86 @@ body.dark {
 h1 {
   margin-bottom: 20px;
   text-align: center;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Space between filters and metrics */
+.metrics {
+  margin: 15px 0 25px 0; /* Added more space here */
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Clear Buttons */
+.clear-btn-wrapper {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.clear-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background-color: #e33a3a;
+}
+
+.clear-options {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.clear-options button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background-color: #f4f4f4;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+}
+
+.clear-options button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Dark Mode Toggle Button in Top Right */
+.toggle-mode {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: transparent;
+  font-size: 22px;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.toggle-mode:hover {
+  background: rgba(100, 100, 255, 0.1);
+}
+
+/* Task Input Wrapper */
+.task-input-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 /* Inputs */
@@ -92,21 +172,6 @@ button:active {
 button:disabled {
   background: #aaa;
   cursor: not-allowed;
-}
-
-/* Clear Completed Button */
-.clear-btn {
-  background: #ff4d4d !important;
-  margin-top: 10px;
-}
-
-.clear-btn:hover {
-  background: #e33a3a !important;
-}
-
-/* Add spacing utility */
-.spaced {
-  margin-left: 10px;
 }
 
 /* Task list */

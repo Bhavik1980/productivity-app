@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
+import confetti from "canvas-confetti";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
@@ -23,6 +24,7 @@ function App() {
   const [category, setCategory] = useState("Work");
   const [filter, setFilter] = useState("All");
   const [darkMode, setDarkMode] = useState(false);
+  const [showClearOptions, setShowClearOptions] = useState(false); // To show/hide clear options
 
   // Apply dark mode to body
   useEffect(() => {
@@ -32,41 +34,46 @@ function App() {
 
   const addTask = () => {
     if (!input.trim()) return;
-    setTasks([
-      ...tasks,
-      { id: Date.now(), text: input, completed: false, category },
-    ]);
+    setTasks([...tasks, { id: Date.now(), text: input, completed: false, category }]);
     setInput("");
   };
 
   const toggleTask = (id) => {
     setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+      tasks.map((task) => {
+        if (task.id === id) {
+          const updated = { ...task, completed: !task.completed };
+          if (!task.completed && updated.completed) {
+            confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+          }
+          return updated;
+        }
+        return task;
+      })
     );
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const deleteTask = (id) => setTasks(tasks.filter((task) => task.id !== id));
+
+  const clearCompleted = () => setTasks(tasks.filter((task) => !task.completed));
+
+  const clearAll = () => {
+    if (tasks.length === 0) return;
+    if (window.confirm("Are you sure you want to clear all tasks?")) {
+      setTasks([]);
+    }
   };
 
-  const clearCompleted = () => {
-    setTasks(tasks.filter((task) => !task.completed));
-  };
-
-  // Derived metrics
   const completedCount = tasks.filter((task) => task.completed).length;
   const pendingCount = tasks.length - completedCount;
 
-  // Filter tasks
-  const filteredTasks =
-    filter === "All" ? tasks : tasks.filter((t) => t.category === filter);
+  const filteredTasks = filter === "All" ? tasks : tasks.filter((t) => t.category === filter);
 
   return (
     <div className={`container ${darkMode ? "dark" : ""}`}>
+      {/* Dark Mode Toggle Button */}
       <button onClick={() => setDarkMode(!darkMode)} className="toggle-mode">
-        {darkMode ? "Light Mode" : "Dark Mode"}
+        {darkMode ? "🌙" : "🌞"} {/* Display sun for light mode, moon for dark */}
       </button>
 
       <h1>Productivity App</h1>
@@ -74,11 +81,7 @@ function App() {
       {/* Filter Buttons */}
       <div className="filters">
         {["All", "Work", "Study", "Personal"].map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={filter === f ? "active-filter" : ""}
-          >
+          <button key={f} onClick={() => setFilter(f)} className={filter === f ? "active-filter" : ""}>
             {f}
           </button>
         ))}
@@ -86,14 +89,26 @@ function App() {
 
       {/* Metrics */}
       <p className="metrics">
-        Total: {tasks.length} | Completed: {completedCount} | Pending:{" "}
-        {pendingCount}
+        Total: {tasks.length} | Completed: {completedCount} | Pending: {pendingCount}
       </p>
 
-      {/* Clear Completed Button */}
-      <button className="clear-btn" onClick={clearCompleted}>
-        Clear Completed
-      </button>
+      {/* Clear Dropdown Button */}
+      <div className="clear-btn-wrapper">
+        <button
+          className="clear-btn"
+          onClick={() => setShowClearOptions(!showClearOptions)} // Toggle the dropdown visibility
+        >
+          Clear <span>▼</span>
+        </button>
+
+        {/* Clear Options */}
+        {showClearOptions && (
+          <div className="clear-options">
+            <button onClick={clearCompleted}>Clear Completed</button>
+            <button onClick={clearAll}>Clear All</button>
+          </div>
+        )}
+      </div>
 
       {/* Task Input */}
       <TaskInput
@@ -105,11 +120,7 @@ function App() {
       />
 
       {/* Task List */}
-      <TaskList
-        tasks={filteredTasks}
-        toggleTask={toggleTask}
-        deleteTask={deleteTask}
-      />
+      <TaskList tasks={filteredTasks} toggleTask={toggleTask} deleteTask={deleteTask} />
     </div>
   );
 }
