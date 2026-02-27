@@ -59,7 +59,7 @@ h1 {
   justify-content: center;
 }
 
-/* Space between filters and metrics */
+/* Metrics */
 .metrics {
   margin: 15px 0 25px 0; /* Added more space here */
   text-align: center;
@@ -119,6 +119,59 @@ h1 {
 
 .toggle-mode:hover {
   background: rgba(100, 100, 255, 0.1);
+}
+
+/* Pomodoro Timer */
+.pomodoro-timer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pomodoro-timer p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.pomodoro-timer button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.pomodoro-timer button:hover {
+  background-color: #45a049;
+}
+
+.pomodoro-timer button:active {
+  transform: scale(0.97);
+}
+
+/* Pomodoro Settings (User input for work/break times) */
+.pomodoro-settings {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pomodoro-settings div {
+  margin: 5px 0;
+}
+
+.pomodoro-settings input {
+  padding: 8px;
+  width: 50px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.pomodoro-settings label {
+  font-size: 14px;
+  margin-right: 10px;
 }
 
 /* Task Input Wrapper */
